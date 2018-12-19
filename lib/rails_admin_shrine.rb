@@ -35,11 +35,12 @@ module RailsAdmin
             "cached_#{name}_data"
           end
 
-          def resource_url(thumb = false)
+          def resource_url(thumb = nil)
             return nil unless value
 
             if value.is_a?(Hash)
-              value[thumb || value.keys.first].url
+              key = thumb || (value.key?(:original) ? :original : value.keys.first)
+              value[key].url
             else
               value.url
             end
